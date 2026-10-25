@@ -1,0 +1,25 @@
+{
+  "name": "idor-check-eval",
+  "version": "1.0",
+  "satisfies": "python-idor-check@1.0",
+  "language": "python",
+  "verify_command": "python3 -m unittest discover -s tests -t .",
+  "baseline": {
+    "test_count": 8,
+    "service_test_files": [
+      "tests/test_documents.py",
+      "tests/test_portability.py"
+    ]
+  },
+  "required_files": [
+    "docs_app/__init__.py",
+    "docs_app/service.py",
+    "docs_app/store.py",
+    "tests/__init__.py",
+    "tests/test_documents.py",
+    "tests/test_portability.py",
+    "eval/workloads/idor-check.json"
+  ],
+  "schema_version": "1.1",
+  "eval_dir": "eval"
+}
