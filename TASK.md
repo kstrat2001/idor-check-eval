@@ -32,7 +32,7 @@ Use the existing `NotFound` and `Forbidden` exceptions in `docs_app/service.py`,
 
 - Repo root: ${SANDBOX_DIR}.
 - Python standard library only. There is nothing to install.
-- Do not modify existing tests — only add new ones. Add tests for the new behavior under `tests/`, using `unittest`.
+- Add your tests for the new behavior in a new file under `tests/`, using `unittest`. Do not change the existing test files at all.
 - Your tests must run in a DIFFERENT environment than this one, where that
   path does not exist. Resolve anything path-dependent from `Path(__file__)`.
   `tests/test_portability.py` enforces this and will tell you immediately.
