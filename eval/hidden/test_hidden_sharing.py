@@ -100,10 +100,12 @@ class Doc142(unittest.TestCase):
         self.svc.get_document(self.s(self.bystander), self.doc.id)
 
     def test_r3_stranger_sharing_gets_not_found(self):
+        # Sharer and target are both in the document's organization, so only
+        # requirement 3 applies (requirement 1's cross-organization rule does not).
         with self.assertRaises(NotFound):
-            self.svc.share_document(self.s(self.outsider), self.doc.id, self.outsider.id)
+            self.svc.share_document(self.s(self.bystander), self.doc.id, self.bystander.id)
         with self.assertRaises(NotFound):
-            self.svc.get_document(self.s(self.outsider), self.doc.id)
+            self.svc.get_document(self.s(self.bystander), self.doc.id)
 
     # Requirement 6
     def test_r6_admin_reads_any_document_in_own_org(self):
@@ -124,13 +126,17 @@ class Doc142(unittest.TestCase):
 
     # Requirement 7
     def test_r7_unreadable_and_missing_documents_look_the_same(self):
-        for user in (self.bystander, self.outsider, self.other_admin):
+        # Admins are left out of the update and delete half: requirement 6 says
+        # admins get Forbidden there, so only non-admins are unambiguous.
+        for user in (self.bystander, self.outsider):
             with self.assertRaises(NotFound):
                 self.svc.get_document(self.s(user), self.doc.id)
             with self.assertRaises(NotFound):
                 self.svc.update_document(self.s(user), self.doc.id, "x")
             with self.assertRaises(NotFound):
                 self.svc.delete_document(self.s(user), self.doc.id)
+        with self.assertRaises(NotFound):
+            self.svc.get_document(self.s(self.other_admin), self.doc.id)
         self.assertEqual(self.store.get_document(self.doc.id).body, "draft")
 
     def test_r7_unshared_colleague_is_not_listed(self):
