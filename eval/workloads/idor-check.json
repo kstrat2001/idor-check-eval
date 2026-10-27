@@ -33,7 +33,114 @@
             "## Reply format"
           ],
           "required": true
-        }
+        },
+        "criteria": [
+          {
+            "id": "share-in-org",
+            "name": "Sharing stays in the organization",
+            "description": "Sharing with a user in another organization raises Forbidden, and with an unknown user NotFound.",
+            "source": {
+              "path": "eval/hidden/test_hidden_sharing.py",
+              "anchor": "def test_r1_cannot_share_with_another_organization(self):"
+            },
+            "tests": [
+              "test_hidden_doc142.Doc142.test_r1_cannot_share_with_another_organization",
+              "test_hidden_doc142.Doc142.test_r1_sharing_with_an_unknown_user_is_not_found"
+            ]
+          },
+          {
+            "id": "revoke-immediate",
+            "name": "Revoke takes effect at once",
+            "description": "After a revoke, the very next get or list by that user behaves as if the document had never been shared.",
+            "source": {
+              "path": "eval/hidden/test_hidden_sharing.py",
+              "anchor": "def test_r2_revoke_is_immediate_for_get(self):"
+            },
+            "tests": [
+              "test_hidden_doc142.Doc142.test_r2_revoke_is_immediate_for_get",
+              "test_hidden_doc142.Doc142.test_r2_revoke_is_immediate_for_list"
+            ]
+          },
+          {
+            "id": "owner-only-sharing",
+            "name": "Only the owner shares",
+            "description": "Only the owner can share or revoke: a reader gets Forbidden, anyone who cannot read the document gets NotFound.",
+            "source": {
+              "path": "eval/hidden/test_hidden_sharing.py",
+              "anchor": "def test_r3_shared_user_cannot_reshare(self):"
+            },
+            "tests": [
+              "test_hidden_doc142.Doc142.test_r3_shared_user_cannot_reshare",
+              "test_hidden_doc142.Doc142.test_r3_shared_user_cannot_revoke",
+              "test_hidden_doc142.Doc142.test_r3_stranger_sharing_gets_not_found"
+            ]
+          },
+          {
+            "id": "shared-user-reads",
+            "name": "Shared user can read",
+            "description": "A user the document is shared with can get it, and it appears in their list.",
+            "source": {
+              "path": "eval/hidden/test_hidden_sharing.py",
+              "anchor": "def test_r4_shared_user_can_get(self):"
+            },
+            "tests": [
+              "test_hidden_doc142.Doc142.test_r4_shared_user_can_get",
+              "test_hidden_doc142.Doc142.test_r4_shared_document_is_listed"
+            ]
+          },
+          {
+            "id": "shared-read-only",
+            "name": "Sharing is read-only",
+            "description": "A user the document is shared with gets Forbidden on update and delete.",
+            "source": {
+              "path": "eval/hidden/test_hidden_sharing.py",
+              "anchor": "def test_r5_shared_user_cannot_update(self):"
+            },
+            "tests": [
+              "test_hidden_doc142.Doc142.test_r5_shared_user_cannot_update",
+              "test_hidden_doc142.Doc142.test_r5_shared_user_cannot_delete"
+            ]
+          },
+          {
+            "id": "admin-scope",
+            "name": "Admin reads only in own org",
+            "description": "An admin reads every document in their own organization, cannot update or delete others' documents, and sees nothing in another organization.",
+            "source": {
+              "path": "eval/hidden/test_hidden_sharing.py",
+              "anchor": "def test_r6_admin_reads_any_document_in_own_org(self):"
+            },
+            "tests": [
+              "test_hidden_doc142.Doc142.test_r6_admin_reads_any_document_in_own_org",
+              "test_hidden_doc142.Doc142.test_r6_admin_cannot_update_or_delete_others_documents",
+              "test_hidden_doc142.Doc142.test_r6_admin_of_another_org_sees_nothing"
+            ]
+          },
+          {
+            "id": "no-existence-leak",
+            "name": "No existence leak",
+            "description": "A document the caller cannot read looks exactly like one that does not exist, in get and in list.",
+            "source": {
+              "path": "eval/hidden/test_hidden_sharing.py",
+              "anchor": "def test_r7_unreadable_and_missing_documents_look_the_same(self):"
+            },
+            "tests": [
+              "test_hidden_doc142.Doc142.test_r7_unreadable_and_missing_documents_look_the_same",
+              "test_hidden_doc142.Doc142.test_r7_unshared_colleague_is_not_listed"
+            ]
+          },
+          {
+            "id": "owner-keeps-access",
+            "name": "Owner keeps full access",
+            "description": "Everything the owner could do before still works.",
+            "source": {
+              "path": "eval/hidden/test_hidden_sharing.py",
+              "anchor": "def test_r9_owner_keeps_full_access(self):"
+            },
+            "tests": [
+              "test_hidden_doc142.Doc142.test_r9_owner_keeps_full_access"
+            ]
+          }
+        ]
       }
     },
     "image": "python:3.13-slim@sha256:d98cc29d3266e535dd9da1099688d9cb3ca4753813571e071763d17725460962"
