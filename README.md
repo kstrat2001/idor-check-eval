@@ -5,6 +5,21 @@ code. It is a test subject, not a library. The subject is a small document
 service, users in organizations and the documents they own, and a ticket that
 asks for read-only sharing between colleagues.
 
+## At a glance
+
+| | |
+| --- | --- |
+| Kind | Coding with tools: the model edits and runs a sandboxed copy of this repo, without `eval/` |
+| Version | 1.3 (tag `1.3`, commit `e3e5291`) |
+| Criteria | 8, each recorded as met or missed on every run |
+| Results | [evals.darkmux.com/evals/idor-check-eval](https://evals.darkmux.com/evals/idor-check-eval) |
+| Needs | darkmux 5.9.0 or later |
+| License | MIT |
+
+The eval's page on evals.darkmux.com names the approved commit, lists the
+criteria and shows which ones each run met. The criteria are not listed here
+because this file is inside the model's sandbox.
+
 ## The task
 
 `TASK.md` is the prompt an agent receives, verbatim: ticket DOC-142, which
@@ -41,21 +56,6 @@ python3 -m unittest discover -s tests -t .   # 8 tests, standard library only
 ```
 
 Python 3.10 or newer. Nothing to install.
-
-## At a glance
-
-| | |
-| --- | --- |
-| Kind | Coding with tools: the model edits and runs a sandboxed copy of this repo, without `eval/` |
-| Version | 1.3 (tag `1.3`, commit `e3e5291`) |
-| Criteria | 8, each recorded as met or missed on every run |
-| Results | [evals.darkmux.com/evals/idor-check-eval](https://evals.darkmux.com/evals/idor-check-eval) |
-| Needs | darkmux 5.9.0 or later |
-| License | MIT |
-
-The eval's page on evals.darkmux.com names the approved commit, lists the
-criteria and shows which ones each run met. They are not listed in this file
-because this file is inside the model's sandbox.
 
 ## Run it with darkmux
 
