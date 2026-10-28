@@ -46,7 +46,10 @@ Python 3.10 or newer. Nothing to install.
 
 `eval/` holds the darkmux workload (`eval/workloads/idor-check.json`) and the
 hidden checks it embeds (`eval/hidden/`). `eval/` is never copied into the
-model's sandbox.
+model's sandbox. `eval/roles/coder.json` and `eval/roles/coder.md` are the role
+the model runs as, system prompt included: darkmux's built-in `coder`, copied
+in so the eval pins it. darkmux reads the role from here, never from the
+machine's own settings, and each run records the sha256 of both files.
 
 ```bash
 darkmux lab fixture register /path/to/idor-check-eval
